@@ -2,6 +2,10 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+<<<<<<< Updated upstream
+=======
+.kotlin
+>>>>>>> Stashed changes
 
 ### IntelliJ IDEA ###
 .idea/modules.xml

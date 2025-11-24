@@ -17,13 +17,20 @@
 	correspodiente a tu base de datos al pom.xml de tu proyecto.	
 	-->
 	 
+<<<<<<< Updated upstream
 	<!-- HSQLDB
+=======
+	<!-- HSQLDB -->   	
+>>>>>>> Stashed changes
     <Resource name="jdbc/Sistema_Nomina_Proyecto_Final_POODS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
 	      username="sa" password="" 
 	      driverClassName="org.hsqldb.jdbc.JDBCDriver"
 	      url="jdbc:hsqldb:hsql://localhost:1666"/>
+<<<<<<< Updated upstream
 	      -->
+=======
+>>>>>>> Stashed changes
 	      
 	<!-- MySQL       
     <Resource name="jdbc/Sistema_Nomina_Proyecto_Final_POODS" auth="Container" type="javax.sql.DataSource"
@@ -33,6 +40,7 @@
 	      url="jdbc:mysql://localhost:3306/Sistema_Nomina_Proyecto_Final_POOdb"/>	      
 	-->      
 	
+<<<<<<< Updated upstream
 	<!-- PostgreSQL -->
 	<Resource name="jdbc/Sistema_Nomina_Proyecto_Final_POODS" auth="Container" type="javax.sql.DataSource"
 	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
@@ -40,6 +48,15 @@
 	      driverClassName="org.postgresql.Driver" 
 	      url="jdbc:postgresql://localhost:5432//Sistema_Nomina_Proyecto_Final_POOdb"/>
 
+=======
+	<!-- PostgreSQL 
+	<Resource name="jdbc/Sistema_Nomina_Proyecto_Final_POODS" auth="Container" type="javax.sql.DataSource"
+	      maxTotal="20" maxIdle="5" maxWaitMillis="10000"
+	      username="postgres" password="" 
+	      driverClassName="org.postgresql.Driver" 
+	      url="jdbc:postgresql://localhost/Sistema_Nomina_Proyecto_Final_POOdb"/>
+	-->
+>>>>>>> Stashed changes
 	
 	<!-- Oracle 
 	<Resource name="jdbc/Sistema_Nomina_Proyecto_Final_POODS" auth="Container" type="javax.sql.DataSource"

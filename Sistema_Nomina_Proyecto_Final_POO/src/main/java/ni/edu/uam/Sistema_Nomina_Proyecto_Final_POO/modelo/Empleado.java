@@ -5,19 +5,24 @@ import org.openxava.annotations.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Entidad que representa a un empleado de la ferretería, con rol (chofer o ayudante).
+ * Entidad que representa a un empleado de la ferretería.
  * Su salario se calcula basado en los viajes en los que participa.
+ * Atributos adicionales: fecha de contratación, número de identificación, teléfono y dirección.
  */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@View(members = "nombre; rol; viajes [ viajesComoChofer, viajesComoAyudante ]") // Vista default
-@View(name = "Simple", members = "nombre; rol") // Vista simplificada para referencias
+@View(members = "datosBasicos [ nombre; numeroIdentificacion; fechaContratacion ]; " +
+        "contacto [ telefono; direccion ]; " +
+        "viajes [ viajesComoChofer, viajesComoAyudante ]")
+@View(name = "Simple", members = "nombre; numeroIdentificacion")
 public class Empleado {
 
     @Id
@@ -25,22 +30,27 @@ public class Empleado {
     private Long id;
 
     @NotNull
-    @Required // Para UI en OpenXava
+    @Required
     private String nombre;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
+    @Required
+    @Column(unique = true)
+    private String numeroIdentificacion;
+
+    @NotNull
+    @Required
+    private LocalDate fechaContratacion;
+
+    private String telefono;
+
+    private String direccion;
 
     @OneToMany(mappedBy = "chofer")
-    @ListProperties("fecha, destino, montoChofer, montoAyudante") // Columnas en la lista de viajes
-    private List<Viaje> viajesComoChofer;
+    @ListProperties("fecha, destino, montoChofer")
+    private List<Viaje> viajesComoChofer = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ayudante")
-    @ListProperties("fecha, destino, montoChofer, montoAyudante")
-    private List<Viaje> viajesComoAyudante;
-
-    public enum Rol {
-        CHOFER, AYUDANTE
-    }
+    @OneToMany(mappedBy = "empleado")
+    @ListProperties("viaje.fecha, viaje.destino, monto") // Muestra monto individual
+    private List<ParticipacionAyudante> viajesComoAyudante = new ArrayList<>();
 }

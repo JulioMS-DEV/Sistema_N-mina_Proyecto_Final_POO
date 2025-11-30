@@ -20,5 +20,11 @@
                 clase="acciones.CrearProfesor"/>        
     </controlador>
     -->
+    <controlador nombre="ReportesEmpleado">
+        <accion nombre="imprimirListado"
+                clase="ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.acciones.ImprimirEmpleadosAction"
+                modo="list"
+                icono="print"/>
+    </controlador>
     
 </controladores>

@@ -44,7 +44,7 @@ public class Viaje {
     private Empleado chofer;
 
     @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL, orphanRemoval = true)
-    @ListProperties("empleado.nombre, monto") // Columnas en la lista UI de ayudantes
+    @ListProperties("empleado.nombres, empleado.apellidos, monto") // Columnas en la lista UI de ayudantes
     private List<ParticipacionAyudante> ayudantes = new ArrayList<>();
 
     @NotNull

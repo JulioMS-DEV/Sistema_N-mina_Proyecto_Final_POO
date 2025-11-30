@@ -5,24 +5,24 @@ import org.openxava.annotations.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.validacion.CedulaNica;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Entidad que representa a un empleado de la ferretería.
- * Su salario se calcula basado en los viajes en los que participa.
- * Atributos adicionales: fecha de contratación, número de identificación, teléfono y dirección.
  */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@View(members = "datosBasicos [ nombre; numeroIdentificacion; fechaContratacion ]; " +
+@View(members = "datosBasicos [ nombres; apellidos; cedula; fechaContratacion ]; " +
         "contacto [ telefono; direccion ]; " +
         "viajes [ viajesComoChofer, viajesComoAyudante ]")
-@View(name = "Simple", members = "nombre; numeroIdentificacion")
+@View(name = "Simple", members = "nombres, apellidos")
 public class Empleado {
 
     @Id
@@ -31,17 +31,23 @@ public class Empleado {
 
     @NotNull
     @Required
-    private String nombre;
+    private String nombres;
+
+    @NotNull
+    @Required
+    private String apellidos;
 
     @NotNull
     @Required
     @Column(unique = true)
-    private String numeroIdentificacion;
+    @CedulaNica
+    private String cedula;
 
     @NotNull
     @Required
     private LocalDate fechaContratacion;
 
+    @Pattern(regexp = "\\d{8}", message = "El número de teléfono debe tener 8 dígitos")
     private String telefono;
 
     private String direccion;
@@ -51,6 +57,6 @@ public class Empleado {
     private List<Viaje> viajesComoChofer = new ArrayList<>();
 
     @OneToMany(mappedBy = "empleado")
-    @ListProperties("viaje.fecha, viaje.destino, monto") // Muestra monto individual
+    @ListProperties("viaje.fecha, viaje.destino, monto")
     private List<ParticipacionAyudante> viajesComoAyudante = new ArrayList<>();
 }

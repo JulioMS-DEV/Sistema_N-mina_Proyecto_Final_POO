@@ -21,13 +21,16 @@
 			<artifactId>openxava</artifactId>
 			<version>${openxava.version}</version>
 		</dependency>
-		
-		<!-- 
-		Para acceder a tu base de datos descomenta la entrada correspondiente 
-		de las dependencias de abajo. Si no encuentras la tuya, busca en
-		internet por la dependencia maven para tu base de datos y añádela
-		aquí tu mismo.
-		-->
+
+
+
+
+        <!--
+        Para acceder a tu base de datos descomenta la entrada correspondiente
+        de las dependencias de abajo. Si no encuentras la tuya, busca en
+        internet por la dependencia maven para tu base de datos y añádela
+        aquí tu mismo.
+        -->
 		
 		<!-- MySQL 
 		<dependency>
@@ -36,29 +39,13 @@
     		<version>9.0.0</version>
 		</dependency>
 		-->
-<<<<<<< Updated upstream
-		
-		<!-- PostgreSQL 
-=======
 
->>>>>>> Stashed changes
 		<dependency>
 			<groupId>org.postgresql</groupId>
     		<artifactId>postgresql</artifactId>
     		<version>42.7.4</version>
 		</dependency>
-<<<<<<< Updated upstream
-		-->
 		
-=======
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
-            <scope>provided</scope>
-        </dependency>
->>>>>>> Stashed changes
 		<!-- Oracle 
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>

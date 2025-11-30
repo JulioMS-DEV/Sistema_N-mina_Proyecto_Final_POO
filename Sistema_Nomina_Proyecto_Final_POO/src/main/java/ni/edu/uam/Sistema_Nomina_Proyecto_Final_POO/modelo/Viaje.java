@@ -2,22 +2,28 @@ package ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.modelo;
 
 import lombok.*;
 import org.openxava.annotations.*;
+import org.openxava.util.XavaException; // Para lanzar errores en UI
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Entidad que representa un viaje de entrega de materiales.
- * Incluye montos específicos por rol para reflejar la compensación proporcional basada en participación.
+ * Soporta un chofer (uno) y múltiples ayudantes con montos individuales.
+ * Validación: No permite empleados duplicados en la lista de ayudantes (incluyendo al chofer si actúa como ayudante).
  */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@View(members = "fecha; destino; chofer; ayudante; montos [ montoChofer, montoAyudante ]") // Grupos en UI
+@View(members = "fecha; destino; chofer; montos [ montoChofer ]; ayudantes") // Muestra colección de ayudantes
 public class Viaje {
 
     @Id
@@ -34,18 +40,15 @@ public class Viaje {
 
     @ManyToOne
     @NotNull
-    @ReferenceView("Simple") // Vista simplificada en dropdowns
+    @ReferenceView("Simple")
     private Empleado chofer;
 
-    @ManyToOne
-    @ReferenceView("Simple")
-    private Empleado ayudante; // Opcional
-
-    @NotNull
-    @Money // Formato moneda en UI OpenXava
-    private BigDecimal montoChofer = BigDecimal.ZERO;
+    @OneToMany(mappedBy = "viaje", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ListProperties("empleado.nombres, empleado.apellidos, monto") // Columnas en la lista UI de ayudantes
+    private List<ParticipacionAyudante> ayudantes = new ArrayList<>();
 
     @NotNull
     @Money
-    private BigDecimal montoAyudante = BigDecimal.ZERO;
+    private BigDecimal montoChofer = BigDecimal.ZERO;
+
 }

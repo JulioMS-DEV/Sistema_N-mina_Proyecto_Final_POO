@@ -13,14 +13,14 @@ import java.util.Locale;
 
 /**
  * Entidad que representa el pago semanal de un empleado.
- * El monto total se calcula automáticamente sumando los montos de viajes en la semana especificada.
+ * Calcula sumando montos de chofer y montos individuales como ayudante.
  */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@View(members = "empleado; semana; montoTotal; fechaGeneracion")
+@View(members = "empleado; fechaPago; montoTotal; fechaGeneracion")
 public class Pago {
 
     @Id
@@ -34,42 +34,43 @@ public class Pago {
 
     @NotNull
     @Required
-    private String semana; // Formato "YYYY-WW" ej. "2025-45"
+    private LocalDate fechaPago;
 
     @NotNull
     private LocalDate fechaGeneracion = LocalDate.now();
 
-    @ReadOnly // Hace que sea solo lectura en la UI de OpenXava
+    @ReadOnly
     @Money
-    @Depends("semana, empleado") // Recalcula si cambian
+    @Depends("fechaPago, empleado")
     public BigDecimal getMontoTotal() {
         BigDecimal total = BigDecimal.ZERO;
-        if (semana == null || empleado == null) return total;
+        if (fechaPago == null || empleado == null) return total;
 
         try {
-            // Parsear semana a fechas de inicio/fin
-            String[] parts = semana.split("-");
-            if (parts.length != 2) return total;
-            int year = Integer.parseInt(parts[0]);
-            int week = Integer.parseInt(parts[1]);
-            LocalDate start = LocalDate.ofYearDay(year, 1)
-                    .with(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear(), week)
-                    .with(WeekFields.of(Locale.getDefault()).dayOfWeek(), 1); // Lunes
-            LocalDate end = start.plusDays(6); // Domingo
+            WeekFields weekFields = WeekFields.of(Locale.getDefault());
+            LocalDate inicioSemana = fechaPago.with(weekFields.dayOfWeek(), 1);
+            LocalDate finSemana = inicioSemana.plusDays(6);
 
-            // Query JPA para sumar montos relevantes
             EntityManager em = XPersistence.getManager();
-            String jpql = "SELECT SUM(CASE WHEN v.chofer = :emp THEN v.montoChofer "
-                    + "WHEN v.ayudante = :emp THEN v.montoAyudante ELSE 0 END) "
-                    + "FROM Viaje v WHERE v.fecha BETWEEN :start AND :end";
-            Query query = em.createQuery(jpql);
-            query.setParameter("emp", empleado);
-            query.setParameter("start", start);
-            query.setParameter("end", end);
-            Number result = (Number) query.getSingleResult();
-            if (result != null) total = BigDecimal.valueOf(result.doubleValue());
+
+            // Suma como chofer
+            String jpqlChofer = "SELECT SUM(v.montoChofer) FROM Viaje v WHERE v.chofer = :emp AND v.fecha BETWEEN :start AND :end";
+            Query queryChofer = em.createQuery(jpqlChofer);
+            queryChofer.setParameter("emp", empleado);
+            queryChofer.setParameter("start", inicioSemana);
+            queryChofer.setParameter("end", finSemana);
+            Number sumChofer = (Number) queryChofer.getSingleResult();
+            if (sumChofer != null) total = total.add(BigDecimal.valueOf(sumChofer.doubleValue()));
+
+            // Suma como ayudante (montos individuales)
+            String jpqlAyudante = "SELECT SUM(pa.monto) FROM ParticipacionAyudante pa WHERE pa.empleado = :emp AND pa.viaje.fecha BETWEEN :start AND :end";
+            Query queryAyudante = em.createQuery(jpqlAyudante);
+            queryAyudante.setParameter("emp", empleado);
+            queryAyudante.setParameter("start", inicioSemana);
+            queryAyudante.setParameter("end", finSemana);
+            Number sumAyudante = (Number) queryAyudante.getSingleResult();
+            if (sumAyudante != null) total = total.add(BigDecimal.valueOf(sumAyudante.doubleValue()));
         } catch (IllegalArgumentException e) {
-            // Manejo de formato inválido de semana o errores en fechas (incluye NumberFormatException)
             return total;
         }
 

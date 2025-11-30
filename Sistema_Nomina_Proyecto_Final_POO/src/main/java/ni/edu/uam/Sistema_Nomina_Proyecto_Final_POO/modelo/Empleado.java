@@ -5,19 +5,24 @@ import org.openxava.annotations.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.validacion.CedulaNica;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Entidad que representa a un empleado de la ferretería, con rol (chofer o ayudante).
- * Su salario se calcula basado en los viajes en los que participa.
+ * Entidad que representa a un empleado de la ferretería.
  */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@View(members = "nombre; rol; viajes [ viajesComoChofer, viajesComoAyudante ]") // Vista default
-@View(name = "Simple", members = "nombre; rol") // Vista simplificada para referencias
+@View(members = "datosBasicos [ nombres; apellidos; cedula; fechaContratacion ]; " +
+        "contacto [ telefono; direccion ]; " +
+        "viajes [ viajesComoChofer, viajesComoAyudante ]")
+@View(name = "Simple", members = "nombres, apellidos")
 public class Empleado {
 
     @Id
@@ -25,22 +30,33 @@ public class Empleado {
     private Long id;
 
     @NotNull
-    @Required // Para UI en OpenXava
-    private String nombre;
+    @Required
+    private String nombres;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private Rol rol;
+    @Required
+    private String apellidos;
+
+    @NotNull
+    @Required
+    @Column(unique = true)
+    @CedulaNica
+    private String cedula;
+
+    @NotNull
+    @Required
+    private LocalDate fechaContratacion;
+
+    @Pattern(regexp = "\\d{8}", message = "El número de teléfono debe tener 8 dígitos")
+    private String telefono;
+
+    private String direccion;
 
     @OneToMany(mappedBy = "chofer")
-    @ListProperties("fecha, destino, montoChofer, montoAyudante") // Columnas en la lista de viajes
-    private List<Viaje> viajesComoChofer;
+    @ListProperties("fecha, destino, montoChofer")
+    private List<Viaje> viajesComoChofer = new ArrayList<>();
 
-    @OneToMany(mappedBy = "ayudante")
-    @ListProperties("fecha, destino, montoChofer, montoAyudante")
-    private List<Viaje> viajesComoAyudante;
-
-    public enum Rol {
-        CHOFER, AYUDANTE
-    }
+    @OneToMany(mappedBy = "empleado")
+    @ListProperties("viaje.fecha, viaje.destino, monto")
+    private List<ParticipacionAyudante> viajesComoAyudante = new ArrayList<>();
 }

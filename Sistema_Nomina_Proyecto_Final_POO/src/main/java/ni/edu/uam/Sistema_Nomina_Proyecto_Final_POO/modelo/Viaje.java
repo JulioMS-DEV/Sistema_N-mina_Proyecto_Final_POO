@@ -51,17 +51,4 @@ public class Viaje {
     @Money
     private BigDecimal montoChofer = BigDecimal.ZERO;
 
-    // Validación antes de insertar o actualizar
-    @PrePersist
-    @PreUpdate
-    private void validarAyudantesUnicos() {
-        Set<Long> empleadoIds = new HashSet<>();
-        for (ParticipacionAyudante pa : ayudantes) {
-            Long empId = pa.getEmpleado().getId();
-            if (empleadoIds.contains(empId)) {
-                throw new XavaException("No se puede agregar el mismo empleado más de una vez como ayudante en este viaje.");
-            }
-            empleadoIds.add(empId);
-        }
-    }
 }

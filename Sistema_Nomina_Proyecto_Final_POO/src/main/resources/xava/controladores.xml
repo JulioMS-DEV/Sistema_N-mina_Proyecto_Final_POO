@@ -26,5 +26,24 @@
                 modo="list"
                 icono="print"/>
     </controlador>
-    
+
+    <controlador nombre="ReportesPago">
+        <accion nombre="imprimirComprobante"
+                clase="ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.acciones.ImprimirPagoAction"
+                modo="detail"
+                icono="printer"/>
+
+        <accion nombre="imprimirReporteSemanal"
+            clase="ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.acciones.ImprimirSemanalAction"
+            modo="list"
+            icono="script-text"/>
+
+    </controlador>
+
+    <controlador nombre="ReportesViaje">
+        <accion nombre="imprimirDetalleViaje"
+                clase="ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.acciones.ImprimirViajeAction"
+                modo="detail"
+                icono="car-estate"/>
+    </controlador>
 </controladores>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="detalle_viaje" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdapter.jrdax"/>
+
+    <parameter name="ID_VIAJE" class="java.lang.Long"/>
+    <parameter name="TXT_DESTINO" class="java.lang.String"/>
+    <parameter name="TXT_FECHA" class="java.lang.String"/>
+    <parameter name="TXT_CHOFER" class="java.lang.String"/>
+    <parameter name="TXT_MONTO_CHOFER" class="java.lang.String"/>
+    <parameter name="TXT_GRAN_TOTAL" class="java.lang.String"/>
+
+    <queryString language="sql">
+        <![CDATA[
+        SELECT e.nombres, e.apellidos, pa.monto
+        FROM participacion_ayudante pa
+        INNER JOIN Empleado e ON pa.empleado_id = e.id
+        WHERE pa.viaje_id = $P{ID_VIAJE}
+        ]]>
+    </queryString>
+
+    <field name="nombres" class="java.lang.String"/>
+    <field name="apellidos" class="java.lang.String"/>
+    <field name="monto" class="java.math.BigDecimal"/>
+
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+
+    <title>
+        <band height="160" splitType="Stretch">
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30"/>
+                <textElement textAlignment="Center">
+                    <font size="20" isBold="true"/>
+                </textElement>
+                <text><![CDATA[REPORTE DE VIAJE]]></text>
+            </staticText>
+
+            <rectangle>
+                <reportElement mode="Transparent" x="0" y="50" width="555" height="100"/>
+            </rectangle>
+
+            <staticText><reportElement x="10" y="60" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Destino:]]></text></staticText>
+            <textField><reportElement x="90" y="60" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_DESTINO}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="300" y="60" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fecha:]]></text></staticText>
+            <textField><reportElement x="380" y="60" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_FECHA}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="10" y="90" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Chofer:]]></text></staticText>
+            <textField><reportElement x="90" y="90" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_CHOFER}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="300" y="90" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Pago Chofer:]]></text></staticText>
+            <textField><reportElement x="380" y="90" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_MONTO_CHOFER}]]></textFieldExpression></textField>
+
+            <staticText><reportElement x="300" y="120" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[TOTAL VIAJE:]]></text></staticText>
+            <textField><reportElement x="380" y="120" width="150" height="20"/><textElement><font isBold="true"/></textElement><textFieldExpression><![CDATA[$P{TXT_GRAN_TOTAL}]]></textFieldExpression></textField>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement mode="Opaque" x="0" y="0" width="555" height="30" backcolor="#CCCCCC"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="12" isBold="true"/></textElement>
+                <text><![CDATA[LISTA DE AYUDANTES]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="30" splitType="Stretch">
+            <textField>
+                <reportElement x="10" y="0" width="300" height="30"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{nombres} + " " + $F{apellidos}]]></textFieldExpression>
+            </textField>
+
+            <textField pattern="#,##0.00">
+                <reportElement x="310" y="0" width="200" height="30"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="515" y="0" width="30" height="30"/>
+                <textElement verticalAlignment="Middle"/>
+                <text><![CDATA[C$]]></text>
+            </staticText>
+
+            <line>
+                <reportElement x="0" y="29" width="555" height="1" forecolor="#DDDDDD"/>
+            </line>
+        </band>
+    </detail>
+
+    <summary>
+        <band height="40">
+            <printWhenExpression><![CDATA[$V{REPORT_COUNT} == 0]]></printWhenExpression>
+            <staticText>
+                <reportElement x="0" y="10" width="555" height="30" forecolor="#666666"/>
+                <textElement textAlignment="Center"><font isItalic="true"/></textElement>
+                <text><![CDATA[Este viaje no lleva ayudantes registrados.]]></text>
+            </staticText>
+        </band>
+    </summary>
+</jasperReport>

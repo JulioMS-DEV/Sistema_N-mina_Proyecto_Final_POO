@@ -24,6 +24,18 @@
         <controlador nombre="Typical"/>
         <controlador nombre="ReportesEmpleado"/>
     </modulo>
+
+    <modulo nombre="Pago">
+        <modelo nombre="Pago"/>
+        <controlador nombre="Typical"/>
+        <controlador nombre="ReportesPago"/>
+    </modulo>
+
+    <modulo nombre="Viaje">
+        <modelo nombre="Viaje"/>
+        <controlador nombre="Typical"/>
+        <controlador nombre="ReportesViaje"/>
+    </modulo>
 		
 </aplicacion>
 

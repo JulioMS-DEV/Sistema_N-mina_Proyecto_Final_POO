@@ -40,24 +40,32 @@
                 <text><![CDATA[REPORTE DE VIAJE]]></text>
             </staticText>
 
+            <textField>
+                <reportElement x="305" y="35" width="250" height="15"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Generado el: " + new java.text.SimpleDateFormat("dd/MM/yyyy h:mm a", new java.util.Locale("es", "ES")).format(new java.util.Date())]]></textFieldExpression>
+            </textField>
+
             <rectangle>
-                <reportElement mode="Transparent" x="0" y="50" width="555" height="100"/>
+                <reportElement mode="Transparent" x="0" y="55" width="555" height="100"/>
             </rectangle>
 
-            <staticText><reportElement x="10" y="60" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Destino:]]></text></staticText>
-            <textField><reportElement x="90" y="60" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_DESTINO}]]></textFieldExpression></textField>
+            <staticText><reportElement x="10" y="65" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Destino:]]></text></staticText>
+            <textField><reportElement x="90" y="65" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_DESTINO}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="300" y="60" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fecha:]]></text></staticText>
-            <textField><reportElement x="380" y="60" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_FECHA}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="65" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fecha:]]></text></staticText>
+            <textField><reportElement x="380" y="65" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_FECHA}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="10" y="90" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Chofer:]]></text></staticText>
-            <textField><reportElement x="90" y="90" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_CHOFER}]]></textFieldExpression></textField>
+            <staticText><reportElement x="10" y="95" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Chofer:]]></text></staticText>
+            <textField><reportElement x="90" y="95" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_CHOFER}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="300" y="90" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Pago Chofer:]]></text></staticText>
-            <textField><reportElement x="380" y="90" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_MONTO_CHOFER}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="95" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Pago Chofer:]]></text></staticText>
+            <textField><reportElement x="380" y="95" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_MONTO_CHOFER}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="300" y="120" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[TOTAL VIAJE:]]></text></staticText>
-            <textField><reportElement x="380" y="120" width="150" height="20"/><textElement><font isBold="true"/></textElement><textFieldExpression><![CDATA[$P{TXT_GRAN_TOTAL}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="125" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[TOTAL VIAJE:]]></text></staticText>
+            <textField><reportElement x="380" y="125" width="150" height="20"/><textElement><font isBold="true"/></textElement><textFieldExpression><![CDATA[$P{TXT_GRAN_TOTAL}]]></textFieldExpression></textField>
         </band>
     </title>
 
@@ -95,16 +103,6 @@
             </line>
         </band>
     </detail>
-
-    <pageFooter>
-        <band height="25">
-            <textField>
-                <reportElement x="455" y="0" width="100" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
 
     <summary>
         <band height="40">

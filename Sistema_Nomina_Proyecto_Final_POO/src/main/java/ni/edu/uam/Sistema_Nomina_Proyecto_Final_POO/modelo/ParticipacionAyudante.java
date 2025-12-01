@@ -2,11 +2,12 @@ package ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.modelo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.openxava.annotations.*; // Necesario para @Hidden, @Required, @Money
 import org.openxava.jpa.XPersistence;
 
 import javax.persistence.*;
 import javax.validation.ValidationException;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull; // Necesario para validación
 import java.math.BigDecimal;
 
 @Entity
@@ -18,6 +19,7 @@ public class ParticipacionAyudante {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Hidden // <--- CORRECCIÓN 1: Esto oculta el ID de la vista del usuario
     private Long id;
 
     @ManyToOne
@@ -28,9 +30,13 @@ public class ParticipacionAyudante {
     @NotNull
     private Empleado empleado;
 
+    // --- CORRECCIÓN 2: Validaciones del Monto ---
+    @NotNull   // Validación de Java/Hibernate (Base de datos)
+    @Required  // Validación visual de OpenXava (Asterisco y bloqueo de guardado)
+    @Money     // Para que aparezca con formato de moneda (C$) en la caja de texto
     private BigDecimal monto;
 
-    // getters / setters ...
+    // --- Resto de tu código (validarNoDuplicado, etc.) ---
 
     @PrePersist
     @PreUpdate

@@ -12,9 +12,9 @@
         <class>ni.edu.uam.Sistema_Nomina_Proyecto_Final_POO.modelo.ParticipacionAyudante</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/sistema_nomina"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/Sistema_Nomina_Proyecto_Final_POOdb"/>
             <property name="javax.persistence.jdbc.user" value="postgres"/>
-            <property name="javax.persistence.jdbc.password" value="juliomendez2007"/>
+            <property name="javax.persistence.jdbc.password" value="12345"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>  <!-- Crea tablas automáticamente -->
             <property name="hibernate.show_sql" value="true"/>  <!-- Para depuración -->

@@ -6,9 +6,11 @@
 
     <field name="empleado" class="java.lang.String"/>
     <field name="cedula" class="java.lang.String"/>
-    <field name="fecha" class="java.lang.String"/> <field name="monto" class="java.lang.String"/> <background>
-    <band splitType="Stretch"/>
-</background>
+    <field name="fecha" class="java.lang.String"/>
+    <field name="monto" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
 
     <title>
         <band height="60" splitType="Stretch">
@@ -31,26 +33,42 @@
         <band height="30" splitType="Stretch">
             <staticText>
                 <reportElement mode="Opaque" x="0" y="0" width="180" height="30" backcolor="#CCCCCC"/>
-                <box><pen lineWidth="0.5"/></box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
                 <text><![CDATA[Empleado]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="180" y="0" width="100" height="30" backcolor="#CCCCCC"/>
-                <box><pen lineWidth="0.5"/></box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
                 <text><![CDATA[Cédula]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="280" y="0" width="100" height="30" backcolor="#CCCCCC"/>
-                <box><pen lineWidth="0.5"/></box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
                 <text><![CDATA[Fecha Pago]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="380" y="0" width="175" height="30" backcolor="#CCCCCC"/>
-                <box><pen lineWidth="0.5"/></box>
-                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
                 <text><![CDATA[Monto Total]]></text>
             </staticText>
         </band>
@@ -60,28 +78,45 @@
         <band height="20" splitType="Stretch">
             <textField>
                 <reportElement x="0" y="0" width="180" height="20"/>
-                <box leftPadding="5"><pen lineWidth="0.5"/></box>
+                <box leftPadding="5">
+                    <pen lineWidth="0.5"/>
+                </box>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{empleado}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="180" y="0" width="100" height="20"/>
-                <box><pen lineWidth="0.5"/></box>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="280" y="0" width="100" height="20"/>
-                <box><pen lineWidth="0.5"/></box>
+                <box>
+                    <pen lineWidth="0.5"/>
+                </box>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="380" y="0" width="175" height="20"/>
-                <box rightPadding="5"><pen lineWidth="0.5"/></box>
+                <box rightPadding="5">
+                    <pen lineWidth="0.5"/>
+                </box>
                 <textElement textAlignment="Right" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
+    <pageFooter>
+        <band height="25">
+            <textField>
+                <reportElement x="455" y="0" width="100" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
 </jasperReport>

@@ -4,10 +4,13 @@
               xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="pagos_semanal" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 
+    <parameter name="TXT_TOTAL_GENERAL" class="java.lang.String"/>
+
     <field name="empleado" class="java.lang.String"/>
     <field name="cedula" class="java.lang.String"/>
     <field name="fecha" class="java.lang.String"/>
     <field name="monto" class="java.lang.String"/>
+
     <background>
         <band splitType="Stretch"/>
     </background>
@@ -21,10 +24,12 @@
                 </textElement>
                 <text><![CDATA[REPORTE DE NOMINA SEMANAL]]></text>
             </staticText>
-            <textField pattern="dd/MM/yyyy HH:mm">
-                <reportElement x="0" y="40" width="555" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+            <textField>
+                <reportElement x="305" y="40" width="250" height="20"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Generado el: " + new java.text.SimpleDateFormat("dd/MM/yyyy h:mm a", new java.util.Locale("es", "ES")).format(new java.util.Date())]]></textFieldExpression>
             </textField>
         </band>
     </title>
@@ -33,42 +38,26 @@
         <band height="30" splitType="Stretch">
             <staticText>
                 <reportElement mode="Opaque" x="0" y="0" width="180" height="30" backcolor="#CCCCCC"/>
-                <box>
-                    <pen lineWidth="0.5"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
-                </textElement>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
                 <text><![CDATA[Empleado]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="180" y="0" width="100" height="30" backcolor="#CCCCCC"/>
-                <box>
-                    <pen lineWidth="0.5"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
-                </textElement>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
                 <text><![CDATA[Cédula]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="280" y="0" width="100" height="30" backcolor="#CCCCCC"/>
-                <box>
-                    <pen lineWidth="0.5"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
-                </textElement>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
                 <text><![CDATA[Fecha Pago]]></text>
             </staticText>
             <staticText>
                 <reportElement mode="Opaque" x="380" y="0" width="175" height="30" backcolor="#CCCCCC"/>
-                <box>
-                    <pen lineWidth="0.5"/>
-                </box>
-                <textElement textAlignment="Center" verticalAlignment="Middle">
-                    <font isBold="true"/>
-                </textElement>
+                <box><pen lineWidth="0.5"/></box>
+                <textElement textAlignment="Center" verticalAlignment="Middle"><font isBold="true"/></textElement>
                 <text><![CDATA[Monto Total]]></text>
             </staticText>
         </band>
@@ -78,45 +67,51 @@
         <band height="20" splitType="Stretch">
             <textField>
                 <reportElement x="0" y="0" width="180" height="20"/>
-                <box leftPadding="5">
-                    <pen lineWidth="0.5"/>
-                </box>
+                <box leftPadding="5"><pen lineWidth="0.5"/></box>
                 <textElement verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{empleado}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="180" y="0" width="100" height="20"/>
-                <box>
-                    <pen lineWidth="0.5"/>
-                </box>
+                <box><pen lineWidth="0.5"/></box>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="280" y="0" width="100" height="20"/>
-                <box>
-                    <pen lineWidth="0.5"/>
-                </box>
+                <box><pen lineWidth="0.5"/></box>
                 <textElement textAlignment="Center" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{fecha}]]></textFieldExpression>
             </textField>
             <textField>
                 <reportElement x="380" y="0" width="175" height="20"/>
-                <box rightPadding="5">
-                    <pen lineWidth="0.5"/>
-                </box>
+                <box rightPadding="5"><pen lineWidth="0.5"/></box>
                 <textElement textAlignment="Right" verticalAlignment="Middle"/>
                 <textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
             </textField>
         </band>
     </detail>
-    <pageFooter>
-        <band height="25">
-            <textField>
-                <reportElement x="455" y="0" width="100" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+
+    <summary>
+        <band height="50">
+            <staticText>
+                <reportElement x="280" y="10" width="100" height="30"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[TOTAL:]]></text>
+            </staticText>
+
+            <textField isBlankWhenNull="true">
+                <reportElement mode="Opaque" x="380" y="10" width="175" height="30" backcolor="#E0E0E0"/>
+                <box rightPadding="5">
+                    <pen lineWidth="1.0"/>
+                </box>
+                <textElement textAlignment="Right" verticalAlignment="Middle">
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$P{TXT_TOTAL_GENERAL}]]></textFieldExpression>
             </textField>
         </band>
-    </pageFooter>
+    </summary>
 </jasperReport>

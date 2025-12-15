@@ -31,41 +31,53 @@
     </background>
 
     <title>
-        <band height="160" splitType="Stretch">
+        <band height="200" splitType="Stretch">
             <staticText>
-                <reportElement x="0" y="10" width="555" height="30"/>
-                <textElement textAlignment="Center">
-                    <font size="20" isBold="true"/>
+                <reportElement x="0" y="0" width="555" height="35"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="24" isBold="true"/>
+                </textElement>
+                <text><![CDATA[FERRETERÍA KATHERINE]]></text>
+            </staticText>
+
+            <staticText>
+                <reportElement x="0" y="35" width="555" height="25"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="18" isBold="true"/>
                 </textElement>
                 <text><![CDATA[REPORTE DE VIAJE]]></text>
             </staticText>
 
+            <line>
+                <reportElement x="50" y="65" width="455" height="1"/>
+            </line>
+
             <textField>
-                <reportElement x="305" y="35" width="250" height="15"/>
+                <reportElement x="305" y="70" width="250" height="20"/>
                 <textElement textAlignment="Right" verticalAlignment="Middle">
-                    <font size="10"/>
+                    <font fontName="Times New Roman" size="10"/>
                 </textElement>
                 <textFieldExpression><![CDATA["Generado el: " + new java.text.SimpleDateFormat("dd/MM/yyyy h:mm a", new java.util.Locale("es", "ES")).format(new java.util.Date())]]></textFieldExpression>
             </textField>
 
             <rectangle>
-                <reportElement mode="Transparent" x="0" y="55" width="555" height="100"/>
+                <reportElement mode="Transparent" x="0" y="95" width="555" height="100"/>
             </rectangle>
 
-            <staticText><reportElement x="10" y="65" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Destino:]]></text></staticText>
-            <textField><reportElement x="90" y="65" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_DESTINO}]]></textFieldExpression></textField>
+            <staticText><reportElement x="10" y="105" width="80" height="20"/><textElement><font fontName="Times New Roman" isBold="true"/></textElement><text><![CDATA[Destino:]]></text></staticText>
+            <textField><reportElement x="90" y="105" width="200" height="20"/><textElement><font fontName="Times New Roman"/></textElement><textFieldExpression><![CDATA[$P{TXT_DESTINO}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="300" y="65" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Fecha:]]></text></staticText>
-            <textField><reportElement x="380" y="65" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_FECHA}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="105" width="80" height="20"/><textElement><font fontName="Times New Roman" isBold="true"/></textElement><text><![CDATA[Fecha:]]></text></staticText>
+            <textField><reportElement x="380" y="105" width="150" height="20"/><textElement><font fontName="Times New Roman"/></textElement><textFieldExpression><![CDATA[$P{TXT_FECHA}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="10" y="95" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Chofer:]]></text></staticText>
-            <textField><reportElement x="90" y="95" width="200" height="20"/><textFieldExpression><![CDATA[$P{TXT_CHOFER}]]></textFieldExpression></textField>
+            <staticText><reportElement x="10" y="135" width="80" height="20"/><textElement><font fontName="Times New Roman" isBold="true"/></textElement><text><![CDATA[Chofer:]]></text></staticText>
+            <textField><reportElement x="90" y="135" width="200" height="20"/><textElement><font fontName="Times New Roman"/></textElement><textFieldExpression><![CDATA[$P{TXT_CHOFER}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="300" y="95" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[Pago Chofer:]]></text></staticText>
-            <textField><reportElement x="380" y="95" width="150" height="20"/><textFieldExpression><![CDATA[$P{TXT_MONTO_CHOFER}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="135" width="80" height="20"/><textElement><font fontName="Times New Roman" isBold="true"/></textElement><text><![CDATA[Pago Chofer:]]></text></staticText>
+            <textField><reportElement x="380" y="135" width="150" height="20"/><textElement><font fontName="Times New Roman"/></textElement><textFieldExpression><![CDATA[$P{TXT_MONTO_CHOFER}]]></textFieldExpression></textField>
 
-            <staticText><reportElement x="300" y="125" width="80" height="20"/><textElement><font isBold="true"/></textElement><text><![CDATA[TOTAL VIAJE:]]></text></staticText>
-            <textField><reportElement x="380" y="125" width="150" height="20"/><textElement><font isBold="true"/></textElement><textFieldExpression><![CDATA[$P{TXT_GRAN_TOTAL}]]></textFieldExpression></textField>
+            <staticText><reportElement x="300" y="165" width="80" height="20"/><textElement><font fontName="Times New Roman" isBold="true"/></textElement><text><![CDATA[TOTAL VIAJE:]]></text></staticText>
+            <textField><reportElement x="380" y="165" width="150" height="20"/><textElement><font fontName="Times New Roman" isBold="true"/></textElement><textFieldExpression><![CDATA[$P{TXT_GRAN_TOTAL}]]></textFieldExpression></textField>
         </band>
     </title>
 
@@ -73,7 +85,9 @@
         <band height="30">
             <staticText>
                 <reportElement mode="Opaque" x="0" y="0" width="555" height="30" backcolor="#CCCCCC"/>
-                <textElement textAlignment="Center" verticalAlignment="Middle"><font size="12" isBold="true"/></textElement>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="12" isBold="true"/>
+                </textElement>
                 <text><![CDATA[LISTA DE AYUDANTES]]></text>
             </staticText>
         </band>
@@ -83,18 +97,18 @@
         <band height="30" splitType="Stretch">
             <textField>
                 <reportElement x="10" y="0" width="300" height="30"/>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle"><font fontName="Times New Roman"/></textElement>
                 <textFieldExpression><![CDATA[$F{nombres} + " " + $F{apellidos}]]></textFieldExpression>
             </textField>
 
             <textField pattern="#,##0.00">
                 <reportElement x="310" y="0" width="200" height="30"/>
-                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"><font fontName="Times New Roman"/></textElement>
                 <textFieldExpression><![CDATA[$F{monto}]]></textFieldExpression>
             </textField>
             <staticText>
                 <reportElement x="515" y="0" width="30" height="30"/>
-                <textElement verticalAlignment="Middle"/>
+                <textElement verticalAlignment="Middle"><font fontName="Times New Roman"/></textElement>
                 <text><![CDATA[C$]]></text>
             </staticText>
 
@@ -104,12 +118,24 @@
         </band>
     </detail>
 
+    <pageFooter>
+        <band height="40" splitType="Stretch">
+            <textField>
+                <reportElement x="0" y="10" width="555" height="20"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
     <summary>
         <band height="40">
             <printWhenExpression><![CDATA[$V{REPORT_COUNT} == 0]]></printWhenExpression>
             <staticText>
                 <reportElement x="0" y="10" width="555" height="30" forecolor="#666666"/>
-                <textElement textAlignment="Center"><font isItalic="true"/></textElement>
+                <textElement textAlignment="Center"><font fontName="Times New Roman" isItalic="true"/></textElement>
                 <text><![CDATA[Este viaje no lleva ayudantes registrados.]]></text>
             </staticText>
         </band>
